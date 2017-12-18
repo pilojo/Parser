@@ -63,7 +63,6 @@ artifacts/
 *.tmp_proj
 *.log
 *.vspscc
-*.vssscc
 .builds
 *.pidb
 *.svclog
@@ -243,5 +242,5 @@ ModelManifest.xml
 
 # Visual Studio Project files
 *.VS*
-*.vc*
-Parser*
+*.dev
+*.layout

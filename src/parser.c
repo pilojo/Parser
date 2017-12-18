@@ -12,12 +12,22 @@ void parser(Buffer * in_buf) {
 	gen_incode("PLATY: Source file parsed");
 }
 
-void match(int pr_token_code, int pr_token_attribute)
-{
+void match(int pr_token_code, int pr_token_attribute){
 
 }
 
-void syn_eh(int sync_token_code)
-{
+void syn_eh(int sync_token_code){
+
+}
+
+void syn_printe() {
+
+}
+
+void gen_incode() {
+
+}
+
+void program() {
 
 }
