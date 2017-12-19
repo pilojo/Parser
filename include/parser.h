@@ -1,20 +1,18 @@
 #ifndef PARSER_H
 #define PARSER_H
 
-#define NO_ATTR -1
+#include "buffer.h"
+#include "token.h"
 
+Token lookahead;
 Buffer* sc_buf;
-int lookahead;
 int synerrno;
 
-void parser(Buffer * in_buf);
-void match(int pr_token_code, int pr_token_attribute);
-void syn_eh(int sync_token_code);
-void syn_printe();
-void gen_incode();
-
-
-/*Parser code specified by parse tree*/
+void parser(Buffer*);
+void gen_incode(char*);
 void program();
+void match(int, int);
+void syn_eh(int);
+void syn_printe();
 
 #endif

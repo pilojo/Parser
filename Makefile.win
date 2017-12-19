@@ -1,0 +1,37 @@
+# Project: Parser
+# Makefile created by Dev-C++ 5.11
+
+CPP      = g++.exe
+CC       = gcc.exe
+WINDRES  = windres.exe
+OBJ      = src/buffer.o src/parser.o src/platy_st.o src/scanner.o
+LINKOBJ  = src/buffer.o src/parser.o src/platy_st.o src/scanner.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Users/jp972/OneDrive/Compilers/Projects/Parser/Parser/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/jp972/OneDrive/Compilers/Projects/Parser/Parser/include"
+BIN      = Parser.exe
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	${RM} $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
+
+src/buffer.o: src/buffer.c
+	$(CPP) -c src/buffer.c -o src/buffer.o $(CXXFLAGS)
+
+src/parser.o: src/parser.c
+	$(CPP) -c src/parser.c -o src/parser.o $(CXXFLAGS)
+
+src/platy_st.o: src/platy_st.c
+	$(CPP) -c src/platy_st.c -o src/platy_st.o $(CXXFLAGS)
+
+src/scanner.o: src/scanner.c
+	$(CPP) -c src/scanner.c -o src/scanner.o $(CXXFLAGS)
