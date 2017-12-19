@@ -4,7 +4,7 @@ void parser(Buffer* sc_buf){
 	
 }
 
-void gen_incode(char*){
+void gen_incode(char* message){
 	
 }
 
