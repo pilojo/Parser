@@ -423,8 +423,8 @@ Token aa_func03(char lexeme[]) {
 
 /* Purpose:  Converts a lexeme to a decimal value token
 ** Author: Daniel Brenot
-** Version: 1.0
-** Called functions: strlen() , pow()
+** Version: 1.1
+** Called functions: strtol()
 ** Parameters: lexeme: A valid character array containing the lexeme
 ** Return Value: A valid token with the attributes set accordingly
 ** Algorithm: Converts each character to its corresponding decimal value and adds it to the value of the token. 
@@ -433,19 +433,16 @@ Token aa_func05(char lexeme[]) {
 	Token t;
 	char i, base;
 	long dec = 0;
-	for (i = (char)strlen(lexeme) - 1, base = 0; i >= 0; i--, base++)
+	dec = strtol(lexeme, NULL, 10);
+	if (dec < PLATY_INT_MIN || dec > PLATY_INT_MAX)
 	{
-		dec += ((short)pow(DECIMAL, base))*((short)(lexeme[i] - '0'));
-		if (dec < PLATY_INT_MIN || dec > PLATY_INT_MAX)
-		{
-			memcpy(t.attribute.err_lex, lexeme, ERR_LEN - 3);
-			t.attribute.err_lex[ERR_LEN - 3] = '.';
-			t.attribute.err_lex[ERR_LEN - 2] = '.';
-			t.attribute.err_lex[ERR_LEN - 1] = '.';
-			t.attribute.err_lex[ERR_LEN] = '\0';
-			t.code = ERR_T;
-			return t;
-		}
+		memcpy(t.attribute.err_lex, lexeme, ERR_LEN - 3);
+		t.attribute.err_lex[ERR_LEN - 3] = '.';
+		t.attribute.err_lex[ERR_LEN - 2] = '.';
+		t.attribute.err_lex[ERR_LEN - 1] = '.';
+		t.attribute.err_lex[ERR_LEN] = '\0';
+		t.code = ERR_T;
+		return t;
 	}
 	t.code = INL_T;
 	t.attribute.int_value = dec;
@@ -454,7 +451,7 @@ Token aa_func05(char lexeme[]) {
 
 /* Purpose: Converts a lexeme into a floating point token
 ** Author: Daniel Brenot
-** Version: 1.0
+** Version: 1.1
 ** Called functions: strchr() , strlen()
 ** Parameters: lexeme: A valid character array containing the lexeme
 ** Return Value: A Token representing the floating point value of the lexeme
@@ -466,27 +463,16 @@ Token aa_func08(char lexeme[])
 	char decimal = (char)(strchr(lexeme, '.') - lexeme);
 	char i, base;
 	float flt = 0;
-	char change = 0;
-
-	for (i = (char)strlen(lexeme) - 1, base = decimal - (i); i >= 0; i--)
+	flt = atof(lexeme);
+	if (flt == INFINITY || flt == NAN || flt < PLATY_INT_MIN || flt > PLATY_INT_MAX)
 	{
-		if (lexeme[i] == '.') { continue; }
-		else
-		{
-			flt += ((float)(pow(DECIMAL, base)*(lexeme[i] - '0')));
-			if (lexeme[i] != '0') { change = 1; }
-			if (flt == INFINITY || flt == NAN || flt < PLATY_INT_MIN || flt > PLATY_INT_MAX ||(i==0 && change==1 && flt==0.0))
-			{
-				memcpy(t.attribute.err_lex, lexeme, ERR_LEN - 3);
-				t.attribute.err_lex[ERR_LEN - 3] = '.';
-				t.attribute.err_lex[ERR_LEN - 2] = '.';
-				t.attribute.err_lex[ERR_LEN - 1] = '.';
-				t.attribute.err_lex[ERR_LEN] = '\0';
-				t.code = ERR_T;
-				return t;
-			}
-			base++;
-		}
+		memcpy(t.attribute.err_lex, lexeme, ERR_LEN - 3);
+		t.attribute.err_lex[ERR_LEN - 3] = '.';
+		t.attribute.err_lex[ERR_LEN - 2] = '.';
+		t.attribute.err_lex[ERR_LEN - 1] = '.';
+		t.attribute.err_lex[ERR_LEN] = '\0';
+		t.code = ERR_T;
+		return t;
 	}
 	t.code = FPL_T;
 	t.attribute.flt_value = flt;
@@ -548,22 +534,15 @@ Token aa_func13(char lexeme[])
 }
 
 /* Purpose:
-** Author: John Pilon
-** Version: 1.0
+** Author: John Pilon, Daniel Brenot
+** Version: 1.1
 ** Called functions: 
 ** Parameters: lexeme: A valid character array containing the lexeme
 ** Return Value: Converts a lexeme into a hexadecimal value token
 ** Algorithm: Checks each individual character in the lexeme and converts it to its corresponding hexadecimal value
 */
 long atolh(char * lexeme) {
-	char i, base;  /* counters for base exponent and lexeme index */
-	long hex = 0; /* integer conversion of hex value */
-				  /* Determines integer value of ASCII represented hex value. A,B,C,D,E,F are defined in an enum in table.h */
-	for (i = (char)strlen(lexeme)-1, base = 0; i > 1 && hex >= 0; i--, base++) {
-		/* conversion between ASCII chars and hex integer values. one-time literals are used to complete this calculation */
-		hex += (long)pow(HEX, base)*(lexeme[i] <= '9' ? (short)(lexeme[i] - '0') : (short)(lexeme[i] - 'A' + DECIMAL));
-	}
-	return hex;
+	return strtol(lexeme, NULL, 16);
 }
 
 /* Purpose: Checks if the given lexeme is a specified keyword
