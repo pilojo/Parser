@@ -51,12 +51,12 @@ pSymbolTable table_adds(pSymbolTable const pST, Symbol symbol) {
 ** Return Value: Symbol Table pointer, NULL on fail
 ** Algorithm: Check if there's room for a symbol, if not return null (This symbol table implementation is not dynamic)
 */
-char t_locate(SymbolTable const pST, char * name)
+unsigned char t_locate(SymbolTable const pST, char * name)
 {
 	unsigned short i;
-	for (i = pST.capacity; i >0; i--)
+	for (i = pST.adds_offset; i >=0; i--)
 	{
-		if (strcmp(name, pST.tb_head[i].name))
+		if (strcmp(name, pST.tb_head[i].name)==0)
 		{
 			return pST.tb_head[i].type;
 		}

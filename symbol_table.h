@@ -14,8 +14,8 @@
 
 
 typedef struct SymbolDescriptor {
-	char name[20 + 1];
-	char type;
+	char name[9];
+	unsigned char type;
 } Symbol;
 
 typedef struct SymbolTableDescriptor {
@@ -27,5 +27,5 @@ typedef struct SymbolTableDescriptor {
 
 pSymbolTable table_adds(pSymbolTable const pST, Symbol symbol);
 SymbolTable *t_allocate(unsigned short init_capacity);
-char t_locate(SymbolTable const pST, char * name);
+unsigned char t_locate(SymbolTable const pST, char * name);
 #endif

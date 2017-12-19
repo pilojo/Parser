@@ -11,6 +11,8 @@
 * and standard sting library functions defined in string.h.
 * The define does not have any effect in other compiler projects.
 */
+
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdio.h>
@@ -55,6 +57,7 @@ void print_token(Token t);
 *  an argument at the command line.
 *  usage: scanner source_file_name"
 */
+#ifdef SCANTEST
 int main(int argc, char ** argv) {
 
 	Buffer *sc_buf; /* pointer to input (source) buffer */
@@ -145,7 +148,7 @@ int main(int argc, char ** argv) {
 
 	return (0);
 }
-
+#endif
 /* Error printing function with variable number of arguments
 */
 void err_printf(char *fmt, ...) {
