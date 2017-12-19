@@ -27,6 +27,12 @@
     <ClCompile Include="src\scanner.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="symbol_table.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="platy_symboltable_test.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\buffer.h">
@@ -36,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="symbol_table.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\token.h">

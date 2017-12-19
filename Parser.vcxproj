@@ -67,6 +67,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>include;$(IncludePath)</IncludePath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -99,16 +102,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="platy_symboltable_test.c" />
     <ClCompile Include="src\buffer.c" />
     <ClCompile Include="src\parser.c" />
     <ClCompile Include="src\platy_st.c" />
     <ClCompile Include="src\scanner.c" />
+    <ClCompile Include="symbol_table.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\buffer.h" />
     <ClInclude Include="include\parser.h" />
     <ClInclude Include="include\table.h" />
     <ClInclude Include="include\token.h" />
+    <ClInclude Include="symbol_table.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
