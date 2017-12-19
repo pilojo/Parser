@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = src/buffer.o src/parser.o src/platy_st.o src/scanner.o
-LINKOBJ  = src/buffer.o src/parser.o src/platy_st.o src/scanner.o
+OBJ      = src/buffer.o src/parser.o src/platy_st.o src/scanner.o src/platy_symboltable_test.o src/symbol_table.o
+LINKOBJ  = src/buffer.o src/parser.o src/platy_st.o src/scanner.o src/platy_symboltable_test.o src/symbol_table.o
 LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc
 INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Users/jp972/OneDrive/Compilers/Projects/Parser/Parser/include"
 CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/jp972/OneDrive/Compilers/Projects/Parser/Parser/include"
@@ -35,3 +35,9 @@ src/platy_st.o: src/platy_st.c
 
 src/scanner.o: src/scanner.c
 	$(CPP) -c src/scanner.c -o src/scanner.o $(CXXFLAGS)
+
+src/platy_symboltable_test.o: src/platy_symboltable_test.c
+	$(CPP) -c src/platy_symboltable_test.c -o src/platy_symboltable_test.o $(CXXFLAGS)
+
+src/symbol_table.o: src/symbol_table.c
+	$(CPP) -c src/symbol_table.c -o src/symbol_table.o $(CXXFLAGS)
