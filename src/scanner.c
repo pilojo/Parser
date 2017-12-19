@@ -161,7 +161,7 @@ Token malar_next_token(Buffer * sc_buf)
 			c = b_getc(sc_buf);
 			if (c == '>') {
 				t.code = REL_OP_T;
-				t.attribute.log_op = NE;
+				t.attribute.rel_op = NE;
 			}
 			else {
 				b_retract(sc_buf);
