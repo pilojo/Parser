@@ -3,6 +3,7 @@
 
 #include "buffer.h"
 #include "token.h"
+//#include "table.h"
 
 #define NO_ATTR -1
 
@@ -11,7 +12,9 @@ Token malar_next_token(Buffer*);
 Token lookahead;
 Buffer* sc_buf;
 int synerrno;
-int line;
+extern int line;
+extern char * kw_table[];
+extern Buffer * str_LTBL;
 
 void parser(Buffer*);
 void gen_incode(char*);
