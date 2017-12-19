@@ -452,7 +452,7 @@ Token aa_func05(char lexeme[]) {
 /* Purpose: Converts a lexeme into a floating point token
 ** Author: Daniel Brenot
 ** Version: 1.1
-** Called functions: strchr() , strlen()
+** Called functions: strchr() , strlen(), atof(), memcpy()
 ** Parameters: lexeme: A valid character array containing the lexeme
 ** Return Value: A Token representing the floating point value of the lexeme
 ** Algorithm: Converts the lexeme to floating point by parsing through the string for valid characters
@@ -482,7 +482,7 @@ Token aa_func08(char lexeme[])
 /* Purpose: Converts a hexidecimal integer literal lexeme to a integer token
 ** Author: Daniel Brenot
 ** Version: 1.0
-** Called functions: atolh() , memcpy()
+** Called functions: atolh()
 ** Parameters: lexeme: A valid character array containing the lexeme
 ** Return Value: A Token containing the integeR value of the hexadecimal
 ** Algorithm: Calls the atolh function to retrieve the value. if the value is too large, the token is set as an error
@@ -541,9 +541,7 @@ Token aa_func13(char lexeme[])
 ** Return Value: Converts a lexeme into a hexadecimal value token
 ** Algorithm: Checks each individual character in the lexeme and converts it to its corresponding hexadecimal value
 */
-long atolh(char * lexeme) {
-	return strtol(lexeme, NULL, 16);
-}
+long atolh(char * lexeme) {return strtol(lexeme, NULL, 16);}
 
 /* Purpose: Checks if the given lexeme is a specified keyword
 ** Author: John Pilon

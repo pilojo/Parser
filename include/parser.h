@@ -11,6 +11,7 @@ Token malar_next_token(Buffer*);
 Token lookahead;
 Buffer* sc_buf;
 int synerrno;
+int line;
 
 void parser(Buffer*);
 void gen_incode(char*);
