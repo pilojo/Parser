@@ -291,18 +291,33 @@ void arithmetic_expression(){
 }
 //daniel
 void string_expression(){
-	switch (lookahead.code) {
+	switch (lookahead.code)
+	{
 	case SVID_T:
-		match(SVID_T, NO_ATTR);
-		break;
 	case STR_T:
-		match(STR_T, NO_ATTR);
+		primary_string_expression();
+		if (lookahead.code == SCC_OP_T) { match(SCC_OP_T, NO_ATTR); primary_string_expression(); }
 		break;
 	default:
-		syn_printe();
-		break;
 	}
 	gen_incode("PLATY: String expression parsed");
+}
+
+void primary_string_expression()
+{
+	switch (lookahead.code)
+	{
+		case SVID_T:
+			match(SVID_T, NO_ATTR);
+			break;
+		case STR_T:
+			match(STR_T, NO_ATTR);
+			break;
+		default:
+			syn_printe();
+			break;
+	}
+	gen_incode("PLATY: Primary string expression parsed");
 }
 
 void pre_condition(){

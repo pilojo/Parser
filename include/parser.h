@@ -34,6 +34,7 @@ void read_statement();
 void write_statement();
 void arithmetic_expression();
 void string_expression();
+void primary_string_expression();
 void pre_condition();
 void conditional_expression();
 void relational_expression();
