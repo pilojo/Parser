@@ -187,7 +187,7 @@ void garbage_collect(void){
   if(synerrno)
     printf("\nSyntax errors: %d\n",synerrno);
   printf("\nCollecting garbage...\n");
-  b_free(sc_buf);
+  //b_free(sc_buf);
   //b_free(str_LTBL);  
 }
 
