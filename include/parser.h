@@ -36,6 +36,7 @@ void arithmetic_expression();
 void unary_arithmetic_expression();
 void primary_arithmetic_expression();
 void string_expression();
+void primary_string_expression();
 void pre_condition();
 void conditional_expression();
 void logical_OR_expression();
