@@ -10,7 +10,7 @@
 Token malar_next_token(Buffer*);
 
 Token lookahead;
-extern Buffer* sc_buf;
+Buffer* sc_buf;
 int synerrno;
 extern int line;
 extern char * kw_table[];

@@ -401,7 +401,7 @@ Token aa_func02(char lexeme[])
 */
 Token aa_func03(char lexeme[]) {
 	Token token;
-	int i;
+	unsigned int i;
 
 	token.code = SVID_T;
 
@@ -431,7 +431,6 @@ Token aa_func03(char lexeme[]) {
 */
 Token aa_func05(char lexeme[]) {
 	Token t;
-	char i, base;
 	long dec = 0;
 	dec = strtol(lexeme, NULL, 10);
 	if (dec < PLATY_INT_MIN || dec > PLATY_INT_MAX)
@@ -461,8 +460,7 @@ Token aa_func08(char lexeme[])
 {
 	Token t;
 	char decimal = (char)(strchr(lexeme, '.') - lexeme);
-	char i, base;
-	float flt = 0;
+	double flt = 0;
 	flt = atof(lexeme);
 	if (flt == INFINITY || flt == NAN || flt < PLATY_INT_MIN || flt > PLATY_INT_MAX)
 	{
@@ -475,7 +473,7 @@ Token aa_func08(char lexeme[])
 		return t;
 	}
 	t.code = FPL_T;
-	t.attribute.flt_value = flt;
+	t.attribute.flt_value = (float)flt;
 	return t;
 }
 

@@ -149,7 +149,7 @@ pBuffer b_addc(pBuffer const pBD, char symbol) {
 			pBD->cb_head = tempStorage;
 		}
 
-		pBD->capacity = newCapacity;
+		pBD->capacity = (short)newCapacity;
 
 		pBD->cb_head[pBD->addc_offset++] = symbol;
 

@@ -411,10 +411,15 @@ void logical_OR_expression(){
 }
 
 void logical_OR_expression_p(){
-	match(LOG_OP_T, OR);
-	logical_AND_expression();
-	logical_OR_expression_p();
-	gen_incode("PLATY: logical OR expression p parsed");
+	if (lookahead.code == LOG_OP_T) {
+		match(LOG_OP_T, OR);
+		logical_AND_expression();
+		logical_OR_expression_p();
+		gen_incode("PLATY: logical OR expression p parsed");
+	}
+	else {
+		syn_printe();
+	}
 }
 
 void logical_AND_expression(){
@@ -424,10 +429,16 @@ void logical_AND_expression(){
 }
 
 void logical_AND_expression_p(){
-	match(LOG_OP_T, AND);
-	relational_expression();
-	logical_AND_expression_p();
-	gen_incode("PLATY: logical AND expression p parsed");
+	if (lookahead.code == LOG_OP_T) {
+		match(LOG_OP_T, AND);
+		relational_expression();
+		logical_AND_expression_p();
+		gen_incode("PLATY: logical AND expression p parsed");
+	}
+	else {
+		syn_printe();
+	}
+	
 }
 
 void primary_a_relational_expression(){
