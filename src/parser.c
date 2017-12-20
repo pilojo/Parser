@@ -181,7 +181,7 @@ void opt_statements(){
 			break;
 			
 		default:
-			gen_incode("Platy: Opt_statements parsed");
+			gen_incode("PLATY: Opt_statements parsed");
 	}
 }
 
@@ -272,6 +272,7 @@ void selection_statement(){
 		match(KW_T, IF); match(KW_T, TRUE); match(LPR_T, NO_ATTR); conditional_expression(); match(RPR_T, NO_ATTR);
 		match(KW_T, THEN); match(LBR_T, NO_ATTR); opt_statements(); match(RBR_T, NO_ATTR);
 		match(KW_T, ELSE); match(LBR_T, NO_ATTR); opt_statements(); match(RBR_T, NO_ATTR); match(EOS_T, NO_ATTR);
+		gen_incode("PLATY: Selection statement parsed");
 }
 
 void read_statement(){
@@ -284,12 +285,21 @@ void write_statement(){
 	gen_incode("PLATY: WRITE statement parsed");
 }
 
+
 void arithmetic_expression(){
 	
 }
 
 void string_expression(){
-	
+	switch (lookahead.code) {
+	case SVID_T:
+		match(SVID_T, NO_ATTR);
+		break;
+	case STR_T:
+		match(STR_T, NO_ATTR);
+		break;
+	}
+	gen_incode("PLATY: String expression parsed");
 }
 
 void pre_condition(){
@@ -298,7 +308,8 @@ void pre_condition(){
 			switch(lookahead.attribute.get_int){
 				case TRUE: 
 					match(KW_T, TRUE);
-					gen_incode("Platy: pre-condition parsed");
+					gen_incode("PLATY: pre-condition parsed");
+					return;
 				case FALSE:
 					match(KW_T, FALSE);
 					gen_incode("PLATY: pre-condition parsed");
@@ -315,6 +326,7 @@ void pre_condition(){
 
 void conditional_expression(){
 	
+	gen_incode("PLATY: conditional-expression parsed");
 }
 
 void variable_list(){
