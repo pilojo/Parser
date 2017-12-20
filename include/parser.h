@@ -36,6 +36,8 @@ void arithmetic_expression();
 void string_expression();
 void pre_condition();
 void conditional_expression();
+void relational_expression();
+void primary_arithmatic_relational_expression();
 void variable_list();
 void variable_list_p();
 
