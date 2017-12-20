@@ -82,7 +82,7 @@ int scanner_init(Buffer * sc_buf) {
 	/* in case the buffer has been read previously  */
 	b_rewind(sc_buf);
 	b_clear(str_LTBL);
-	line = 0;
+	line = 1;
 	return EXIT_SUCCESS;/*0*/
 }
 
@@ -190,7 +190,6 @@ Token malar_next_token(Buffer * sc_buf)
 				while (((c = b_getc(sc_buf)) != '\n') && c!=SEOF) { 
 					continue;
 				}
-				
 				return t;
 			}
 			while ((c = b_getc(sc_buf)) != '\n') { 
@@ -226,7 +225,9 @@ Token malar_next_token(Buffer * sc_buf)
 		case '\"':
 			lexstart = b_mark(sc_buf, b_getcoffset(sc_buf));
 			b_mark(str_LTBL, b_getcoffset(str_LTBL));
-			while ((c = b_getc(sc_buf)) != '\"' && c!= SEOF && !b_eob(sc_buf));
+			while ((c = b_getc(sc_buf)) != '\"' && c != SEOF && !b_eob(sc_buf)) {
+				if (c == '\n') ++line;
+			}
 			lexend = b_getcoffset(sc_buf) - 1;
 			if (b_eob(sc_buf)) {
 				t.code = ERR_T;
@@ -377,9 +378,9 @@ Token aa_func02(char lexeme[])
 		token.code = KW_T;
 	}
 	else {
-		if (strlen(lexeme) > VID_LEN+1) {
+		if (strlen(lexeme) > VID_LEN) {
 			strncpy(token.attribute.vid_lex, lexeme, VID_LEN);
-			token.attribute.vid_lex[VID_LEN ] = '\0';
+			token.attribute.vid_lex[VID_LEN] = '\0';
 		}
 		else {
 			strncpy(token.attribute.vid_lex, lexeme, strlen(lexeme));

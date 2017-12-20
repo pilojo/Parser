@@ -30,7 +30,7 @@
 #define STR_CAPACITY_INC  50   /* initial string literal table capacity inc */
 
 /*check for ANSI C compliancy */
-#define ANSI_C 0
+#define ANSI_C 1
 #if defined(__STDC__)
 #undef ANSI_C
 #define ANSI_C 1

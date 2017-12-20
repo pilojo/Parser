@@ -30,25 +30,93 @@ PLATYPUS{
 
 Parsing the source file...
 
-PLATY: Syntax error:  Line:  6
-*****  Token code:  9 Attribute: 1
-PLATY: Assignment expression(arithmetic) parsed
-PLATY: Syntax error:  Line:  6
-*****  Token code:  9 Attribute: 1
+PLATY: Primary arithmetic expression parsed
+PLATY: Unary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression (arithmetic) parsed
 PLATY: Assignment statement parsed
-PLATY: Syntax error:  Line:  7
-*****  Token code:  9 Attribute: 0
-PLATY: Assignment expression(arithmetic) parsed
-PLATY: Syntax error:  Line:  7
-*****  Token code:  9 Attribute: 0
+PLATY: Primary arithmetic expression parsed
+PLATY: Unary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression (arithmetic) parsed
 PLATY: Assignment statement parsed
-PLATY: Syntax error:  Line:  8
-*****  Token code: 13 Attribute: NA
-PLATY: Syntax error:  Line:  9
-*****  Token code: 13 Attribute: NA
-PLATY: Syntax error:  Line: 18
-*****  Token code: 13 Attribute: NA
-
-Syntax errors: 5
+PLATY: Variable list parsed
+PLATY: Input statement parsed
+PLATY: Variable list parsed
+PLATY: Input statement parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Additive arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Multiplicative arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Multiplicative arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Additive arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Multiplicative arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Multiplicative arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Additive arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression (arithmetic) parsed
+PLATY: Assignment statement parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Logical AND expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Logical OR expression parsed
+PLATY: Logical OR expression parsed
+PLATY: Conditional expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Logical AND expression parsed
+PLATY: Conditional expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Unary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression (arithmetic) parsed
+PLATY: Assignment statement parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Unary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression (arithmetic) parsed
+PLATY: Assignment statement parsed
+PLATY: Selection statement parsed
+PLATY: Iteration statement parsed
+PLATY: Output list (empty) parsed
+PLATY: Output statement parsed
+PLATY: Output list (string literal) parsed
+PLATY: Output statement parsed
+PLATY: Variable list parsed
+PLATY: Output statement parsed
+PLATY: Program parsed
+PLATY: Source file parsed
 
 Collecting garbage...

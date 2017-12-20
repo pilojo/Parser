@@ -25,75 +25,68 @@ PLATYPUS{
 
 Parsing the source file...
 
-PLATY: pre-condition parsed
-PLATY: relational_expression parsed
-PLATY: Syntax error:  Line:  6
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Conditional expression parsed
+PLATY: Syntax error:  Line:  7
 *****  Token code:  9 Attribute: 2
-PLATY: logical AND expression parsed
-PLATY: Syntax error:  Line:  6
-*****  Token code:  9 Attribute: 2
-PLATY: logical OR expression parsed
-PLATY: conditional-expression parsed
-PLATY: Syntax error:  Line:  6
-*****  Token code:  9 Attribute: 2
-PLATY: Syntax error:  Line:  7
+PLATY: Syntax error:  Line:  8
 *****  Token code: 13 Attribute: NA
-PLATY: Syntax error:  Line:  7
-*****  Token code: 13 Attribute: NA
-PLATY: logical AND expression parsed
-PLATY: Syntax error:  Line:  7
-*****  Token code: 13 Attribute: NA
-PLATY: logical OR expression parsed
-PLATY: conditional-expression parsed
-PLATY: Syntax error:  Line:  7
-*****  Token code: 10 Attribute: 1
+PLATY: Relational expression parsed
+PLATY: Conditional expression parsed
+PLATY: Primary arithmetic expression parsed
 PLATY: Arithmetic expression parsed
-PLATY: Assignment expression(arithmetic) parsed
-PLATY: Syntax error:  Line:  7
+PLATY: Assignment expression (arithmetic) parsed
+PLATY: Syntax error:  Line:  8
 *****  Token code: 10 Attribute: 1
 PLATY: Assignment statement parsed
-PLATY: Syntax error:  Line:  7
+PLATY: Syntax error:  Line:  8
 *****  Token code: 16 Attribute: ELSE
 PLATY: Opt_statements parsed
 PLATY: Selection statement parsed
-PLATY: pre-condition parsed
-PLATY: Syntax error:  Line:  8
-*****  Token code:  6 Attribute: a
-PLATY: relational_expression parsed
-PLATY: Syntax error:  Line:  8
-*****  Token code:  6 Attribute: a
-PLATY: logical AND expression parsed
-PLATY: Syntax error:  Line:  8
-*****  Token code:  6 Attribute: a
-PLATY: logical OR expression parsed
-PLATY: conditional-expression parsed
-PLATY: Syntax error:  Line:  8
-*****  Token code:  6 Attribute: a
-PLATY: Opt_statements parsed
-PLATY: WHILE statement parsed
+PLATY: Primary string expression parsed
+PLATY: Primary s_relational expression parsed
+PLATY: Primary string expression parsed
+PLATY: Primary s_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Conditional expression parsed
 PLATY: Syntax error:  Line:  9
-*****  Token code: 12 Attribute: NA
-PLATY: Assignment expression(arithmetic) parsed
-PLATY: Syntax error:  Line:  9
-*****  Token code: 12 Attribute: NA
+*****  Token code: 15 Attribute: NA
+PLATY: Iteration statement parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Syntax error:  Line: 10
+*****  Token code:  3 Attribute: badLong$
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Syntax error:  Line: 10
+*****  Token code:  2 Attribute: badLong8
+PLATY: Primary arithmetic expression parsed
+PLATY: Primary arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Syntax error:  Line: 10
+*****  Token code:  4 Attribute:   7.0
+PLATY: Primary arithmetic expression parsed
+PLATY: Multiplicative arithmetic expression parsed
+PLATY: Additive arithmetic expression parsed
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression (arithmetic) parsed
 PLATY: Assignment statement parsed
-PLATY: WHILE statement parsed
-PLATY: relational_expression parsed
-PLATY: Syntax error:  Line: 11
-*****  Token code: 13 Attribute: NA
-PLATY: logical AND expression parsed
-PLATY: Syntax error:  Line: 11
-*****  Token code: 13 Attribute: NA
-PLATY: logical OR expression parsed
-PLATY: conditional-expression parsed
-PLATY: Syntax error:  Line: 11
+PLATY: Iteration statement parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Primary a_relational expression parsed
+PLATY: Relational expression parsed
+PLATY: Conditional expression parsed
+PLATY: Syntax error:  Line: 12
 *****  Token code: 16 Attribute: ELSE
 PLATY: Opt_statements parsed
-PLATY: Syntax error:  Line: 11
-*****  Token code: 18 Attribute: NA
 PLATY: Syntax error:  Line: 12
+*****  Token code: 18 Attribute: NA
+PLATY: Syntax error:  Line: 13
 *****  Token code: 12 Attribute: NA
 
-Syntax errors: 8
+Syntax errors: 9
 
 Collecting garbage...
