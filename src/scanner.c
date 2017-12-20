@@ -187,7 +187,7 @@ Token malar_next_token(Buffer * sc_buf)
 				t.attribute.err_lex[0] = '!';
 				t.attribute.err_lex[1] = c;
 				t.attribute.err_lex[2] = '\0';
-				while ((c = b_getc(sc_buf)) != '\n') { 
+				while (((c = b_getc(sc_buf)) != '\n') && c!=SEOF) { 
 					continue;
 				}
 				
@@ -226,7 +226,7 @@ Token malar_next_token(Buffer * sc_buf)
 		case '\"':
 			lexstart = b_mark(sc_buf, b_getcoffset(sc_buf));
 			b_mark(str_LTBL, b_getcoffset(str_LTBL));
-			while ((c = b_getc(sc_buf)) != '\"' && !b_eob(sc_buf));
+			while ((c = b_getc(sc_buf)) != '\"' && c!= SEOF && !b_eob(sc_buf));
 			lexend = b_getcoffset(sc_buf) - 1;
 			if (b_eob(sc_buf)) {
 				t.code = ERR_T;

@@ -10,7 +10,7 @@
 Token malar_next_token(Buffer*);
 
 Token lookahead;
-Buffer* sc_buf;
+extern Buffer* sc_buf;
 int synerrno;
 extern int line;
 extern char * kw_table[];
@@ -50,7 +50,6 @@ void primary_s_relational_expression();
 void primary_s_relational_expression_p();
 void primary_string_expression();
 void relational_expression();
-void primary_arithmatic_relational_expression();
 void variable_list();
 void variable_list_p();
 

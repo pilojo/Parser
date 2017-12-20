@@ -29,3 +29,4 @@ pSymbolTable table_adds(pSymbolTable const pST, Symbol symbol);
 SymbolTable *t_allocate(unsigned short init_capacity);
 unsigned char t_locate(SymbolTable const pST, char * name);
 #endif
+
