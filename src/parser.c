@@ -348,16 +348,16 @@ void primary_arithmetic_expression(){
 }
 //daniel
 void string_expression(){
-	switch (lookahead.code)
-	{
-	case SVID_T:
-	case STR_T:
-		primary_string_expression();
-		if (lookahead.code == SCC_OP_T) { match(SCC_OP_T, NO_ATTR); primary_string_expression(); }
-		break;
-	default:
-	}
+	primary_string_expression();
+	string_expression_p();
 	gen_incode("PLATY: String expression parsed");
+}
+
+void string_expression_p(){
+	if(lookahead.code == SVID_T || lookahead.code == STR_T){
+		primary_string_expression();
+		string_expression_p();
+	}
 }
 
 void primary_string_expression()
@@ -446,46 +446,89 @@ void primary_a_relational_expression(){
 	}
 }
 
+void primary_a_relational_expression_p(){
+	switch(lookahead.code){
+		case REL_OP_T:
+			switch(lookahead.attribute.rel_op){
+				case EQ:
+					match(REL_OP_T, EQ);
+					break;
+				case NE:
+					match(REL_OP_T, NE);
+					break;
+				case GT:
+					match(REL_OP_T, GT);
+					break;
+				case LT:
+					match(REL_OP_T, LT);
+					break;
+				default:
+					syn_printe();
+					return;
+			}
+			primary_a_relational_expression();
+			break;
+		default:
+			syn_printe();
+	}
+}
+
 void primary_s_relational_expression(){
-	primary_string_expression();
+	switch(lookahead.code){
+		case STR_T:
+			match(STR_T, NO_ATTR);
+			break;
+		case SVID_T:
+			match(SVID_T, NO_ATTR);
+			break;
+		default:
+			syn_printe();
+	}
+}
+
+void primary_s_relational_expression_p(){
+	switch(lookahead.code){
+		case REL_OP_T:
+			switch(lookahead.attribute.rel_op){
+				case EQ:
+					match(REL_OP_T, EQ);
+					break;
+				case NE:
+					match(REL_OP_T, NE);
+					break;
+				case GT:
+					match(REL_OP_T, GT);
+					break;
+				case LT:
+					match(REL_OP_T, LT);
+					break;
+				default:
+					syn_printe();
+					return;
+			}
+			primary_a_relational_expression();
+			break;
+		default:
+			syn_printe();
+	}
 }
 
 //daniel
 void relational_expression() {
-
-	if (lookahead.code == AVID_T || lookahead.code == FPL_T || lookahead.code == INL_T)
-	{
-		primary_arithmatic_relational_expression();
-		if (lookahead.code==REL_OP_T)
-		{
-			if (lookahead.attribute.rel_op == EQ) { match(REL_OP_T, EQ); primary_arithmatic_relational_expression(); }
-			else if (lookahead.attribute.rel_op == NE){match(REL_OP_T, NE); primary_arithmatic_relational_expression();}
-			else if (lookahead.attribute.rel_op == GT) { match(REL_OP_T, GT); primary_arithmatic_relational_expression(); }
-			else if (lookahead.attribute.rel_op == LT) { match(REL_OP_T, LT); primary_arithmatic_relational_expression(); }
-			else { syn_printe(); }
-		}
+	switch(lookahead.code){
+		case AVID_T:
+			primary_a_relational_expression();
+			primary_a_relational_expression_p();
+			gen_incode("PLATY: relational_expression parsed");
+			break;
+		case SVID_T:
+			primary_s_relational_expression();
+			primary_s_relational_expression_p();
+			gen_incode("PLATY: relational_expression parsed");
+			break;
+		default:
+			syn_printe();
 	}
-	else if (lookahead.code==SVID_T || lookahead.code == STR_T)
-	{
-		string_expression();
-		if (lookahead.attribute.rel_op == EQ) { match(REL_OP_T, EQ); string_expression(); }
-		else if (lookahead.attribute.rel_op == NE) { match(REL_OP_T, NE); string_expression();}
-		else if (lookahead.attribute.rel_op == GT) { match(REL_OP_T, GT); string_expression();}
-		else if (lookahead.attribute.rel_op == LT) { match(REL_OP_T, LT); string_expression();}
-		else { syn_printe(); }
-	}
-	gen_incode("PLATY: conditional-expression parsed");
-}
-//daniel
-void primary_arithmatic_relational_expression(){
-	switch (lookahead.code)
-	{
-		case AVID_T:match(AVID_T, NO_ATTR);break;
-		case FPL_T:match(FPL_T, NO_ATTR);break;
-		case INL_T:match(INL_T, NO_ATTR);break;
-		default:syn_printe();break;
-	}
-	gen_incode("PLATY: Primary arithmatic expression parsed");
 }
 
 void variable_list(){
