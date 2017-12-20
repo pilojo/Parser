@@ -33,13 +33,21 @@ void selection_statement();
 void read_statement();
 void write_statement();
 void arithmetic_expression();
+void unary_arithmetic_expression();
+void primary_arithmetic_expression();
 void string_expression();
 void pre_condition();
 void conditional_expression();
+void logical_OR_expression();
+void logical_OR_expression_p();
+void logical_AND_expression();
+void logical_AND_expression_p();
+void primary_a_relational_expression();
+void primary_s_relational_expression();
+void primary_string_expression();
 void relational_expression();
 void primary_arithmatic_relational_expression();
 void variable_list();
 void variable_list_p();
-
 
 #endif

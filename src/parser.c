@@ -287,7 +287,64 @@ void write_statement(){
 
 
 void arithmetic_expression(){
-	
+	switch(lookahead.code){
+		case AVID_T:
+			match(AVID_T, NO_ATTR);
+			unary_arithmetic_expression();
+			gen_incode("PLATY: Arithmetic expression parsed");
+			break;
+		default:
+			syn_printe();
+	}
+}
+
+void unary_arithmetic_expression(){
+	switch(lookahead.code){
+		case ART_OP_T:
+			switch(lookahead.attribute.get_int){
+				case PLUS:
+					match(ART_OP_T, PLUS);
+					primary_arithmetic_expression();
+					gen_incode("PLATY: unary_arithmetic_expression parsed");
+					break;
+				case MINUS:
+					match(ART_OP_T, MINUS);
+					primary_arithmetic_expression();
+					gen_incode("PLATY: unary_arithmetic_expression parsed");
+					break;
+				default:
+					syn_printe();
+					return;
+			}
+		default:
+			syn_printe();
+	}
+}
+
+
+void primary_arithmetic_expression(){
+	switch(lookahead.code){
+		case AVID_T:
+			match(AVID_T, NO_ATTR);
+			gen_incode("PLATY: primary_arithmetic_expression parsed");
+			break;
+		case FPL_T:
+			match(FPL_T, NO_ATTR);
+			gen_incode("PLATY: primary_arithmetic_expression parsed");
+			break;
+		case INL_T:
+			match(INL_T, NO_ATTR);
+			gen_incode("PLATY: primary_arithmetic_expression parsed");
+			break;
+		case LPR_T:
+			match(LPR_T, NO_ATTR);
+			arithmetic_expression();
+			match(RPR_T, NO_ATTR);
+			gen_incode("PLATY: primary_arithmetic_expression parsed");
+			break;
+		default:
+			syn_printe();
+	}
 }
 //daniel
 void string_expression(){
@@ -328,9 +385,56 @@ void pre_condition(){
 }
 //daniel
 void conditional_expression(){
-	
+	logical_OR_expression();
 	gen_incode("PLATY: conditional-expression parsed");
 }
+
+void logical_OR_expression(){
+	logical_AND_expression();
+	logical_OR_expression_p();
+	gen_incode("PLATY: logical OR expression parsed");
+}
+
+void logical_OR_expression_p(){
+	match(LOG_OP_T, OR);
+	logical_AND_expression();
+	logical_OR_expression_p();
+	gen_incode("PLATY: logical OR expression p parsed");
+}
+
+void logical_AND_expression(){
+	relational_expression();
+	logical_AND_expression_p();	
+	gen_incode("PLATY: logical AND expression parsed");
+}
+
+void logical_AND_expression_p(){
+	match(LOG_OP_T, AND);
+	relational_expression();
+	logical_AND_expression_p();
+	gen_incode("PLATY: logical AND expression p parsed");
+}
+
+void primary_a_relational_expression(){
+	switch(lookahead.code){
+		case AVID_T:
+			match(AVID_T, NO_ATTR);
+			break;
+		case FPL_T:
+			match(FPL_T, NO_ATTR);
+			break;
+		case INL_T:
+			match(INL_T, NO_ATTR);
+			break;
+		default:
+			syn_printe();
+	}
+}
+
+void primary_s_relational_expression(){
+	primary_string_expression();
+}
+
 //daniel
 void relational_expression() {
 
