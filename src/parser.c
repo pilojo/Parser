@@ -17,7 +17,7 @@ void parser(Buffer* in_buf){
 	sc_buf = in_buf;
 	lookahead = malar_next_token(sc_buf);
 	program(); match(SEOF_T, NO_ATTR);
-	gen_incode("PLATY: Sourse file parsed");
+	gen_incode("PLATY: Source file parsed");
 }
 
 void gen_incode(char* message){

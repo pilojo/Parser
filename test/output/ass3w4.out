@@ -1,0 +1,99 @@
+Reading file ass3w4.pls ....Please wait
+
+Printing input buffer parameters:
+
+The capacity of the buffer is:  427
+The current size of the buffer is:  427
+
+Printing input buffer contents:
+
+!!This program contains syntax errors
+!!Addition to Murphy's laws:
+!!"In nature, nothing is ever right. Therefore,
+!!if everything is going right ... something is wrong."
+
+PLATYPUS{
+  WHILE FALSE(a == b * c)REPEAT{
+   IF TRUE()THEN{a=b<>c;} ELSE ELSE{};
+    WHILE TRUE(goody$ <> "a")REPEAT{};
+    a = (a  badLong89$) + (good badLong89) * (good 7.);
+   };
+  IF TRUE (c > 0)THEN ELSE{};
+  WRITE("Imagine all the scanners );
+ }
+}ÿ
+
+Parsing the source file...
+
+PLATY: pre-condition parsed
+PLATY: relational_expression parsed
+PLATY: Syntax error:  Line:  6
+*****  Token code:  9 Attribute: 2
+PLATY: logical AND expression parsed
+PLATY: Syntax error:  Line:  6
+*****  Token code:  9 Attribute: 2
+PLATY: logical OR expression parsed
+PLATY: conditional-expression parsed
+PLATY: Syntax error:  Line:  6
+*****  Token code:  9 Attribute: 2
+PLATY: Syntax error:  Line:  7
+*****  Token code: 13 Attribute: NA
+PLATY: Syntax error:  Line:  7
+*****  Token code: 13 Attribute: NA
+PLATY: logical AND expression parsed
+PLATY: Syntax error:  Line:  7
+*****  Token code: 13 Attribute: NA
+PLATY: logical OR expression parsed
+PLATY: conditional-expression parsed
+PLATY: Syntax error:  Line:  7
+*****  Token code: 10 Attribute: 1
+PLATY: Arithmetic expression parsed
+PLATY: Assignment expression(arithmetic) parsed
+PLATY: Syntax error:  Line:  7
+*****  Token code: 10 Attribute: 1
+PLATY: Assignment statement parsed
+PLATY: Syntax error:  Line:  7
+*****  Token code: 16 Attribute: ELSE
+PLATY: Opt_statements parsed
+PLATY: Selection statement parsed
+PLATY: pre-condition parsed
+PLATY: Syntax error:  Line:  8
+*****  Token code:  6 Attribute: a
+PLATY: relational_expression parsed
+PLATY: Syntax error:  Line:  8
+*****  Token code:  6 Attribute: a
+PLATY: logical AND expression parsed
+PLATY: Syntax error:  Line:  8
+*****  Token code:  6 Attribute: a
+PLATY: logical OR expression parsed
+PLATY: conditional-expression parsed
+PLATY: Syntax error:  Line:  8
+*****  Token code:  6 Attribute: a
+PLATY: Opt_statements parsed
+PLATY: WHILE statement parsed
+PLATY: Syntax error:  Line:  9
+*****  Token code: 12 Attribute: NA
+PLATY: Assignment expression(arithmetic) parsed
+PLATY: Syntax error:  Line:  9
+*****  Token code: 12 Attribute: NA
+PLATY: Assignment statement parsed
+PLATY: WHILE statement parsed
+PLATY: relational_expression parsed
+PLATY: Syntax error:  Line: 11
+*****  Token code: 13 Attribute: NA
+PLATY: logical AND expression parsed
+PLATY: Syntax error:  Line: 11
+*****  Token code: 13 Attribute: NA
+PLATY: logical OR expression parsed
+PLATY: conditional-expression parsed
+PLATY: Syntax error:  Line: 11
+*****  Token code: 16 Attribute: ELSE
+PLATY: Opt_statements parsed
+PLATY: Syntax error:  Line: 11
+*****  Token code: 18 Attribute: NA
+PLATY: Syntax error:  Line: 12
+*****  Token code: 12 Attribute: NA
+
+Syntax errors: 8
+
+Collecting garbage...
