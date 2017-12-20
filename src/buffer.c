@@ -190,8 +190,8 @@ void b_free(Buffer *const pBD) {
 	if (pBD) {
 		cb_head = pBD->cb_head;
 		free(cb_head);
-		free(pBD);
 		pBD->cb_head = NULL;/* Free dangling pointer */
+		free(pBD);
 	}
 	 
 }
