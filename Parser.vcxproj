@@ -104,7 +104,7 @@
   <ItemGroup>
     <ClCompile Include="src\buffer.c" />
     <ClCompile Include="src\parser.c" />
-    <ClCompile Include="src\platy_st.c" />
+    <ClCompile Include="src\platy.c" />
     <ClCompile Include="src\platy_symboltable_test.c" />
     <ClCompile Include="src\scanner.c" />
     <ClCompile Include="src\symbol_table.c" />

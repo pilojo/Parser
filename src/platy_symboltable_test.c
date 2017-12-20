@@ -1,5 +1,5 @@
 #include "symbol_table.h"
-#define ST_TEST
+//#define ST_TEST
 
 #ifdef ST_TEST
 int main(int argc, char ** argv)
