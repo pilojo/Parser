@@ -133,14 +133,11 @@
     <ClCompile Include="src\buffer.c" />
     <ClCompile Include="src\parser.c" />
     <ClCompile Include="src\platy.c" />
-    <ClCompile Include="src\platy_symboltable_test.c" />
     <ClCompile Include="src\scanner.c" />
-    <ClCompile Include="src\symbol_table.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\buffer.h" />
     <ClInclude Include="include\parser.h" />
-    <ClInclude Include="include\symbol_table.h" />
     <ClInclude Include="include\table.h" />
     <ClInclude Include="include\token.h" />
   </ItemGroup>
