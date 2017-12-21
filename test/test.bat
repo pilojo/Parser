@@ -9,6 +9,12 @@
 "./compiled/Parser.exe" ass3w3.pls > ./output/ass3w3.out 2> ./error/ass3w3.out
 "./compiled/Parser.exe" ass3w4.pls > ./output/ass3w4.out 2> ./error/ass3w4.out
 
+::Additional Scanner test files
+"./compiled/Parser.exe" a2empty.pls > ./output/a2empty.out 2> ./error/a2empty.out
+"./compiled/Parser.exe" a2error.pls > ./output/a2error.out 2> ./error/a2error.out
+"./compiled/Parser.exe" ass2r.pls > ./output/ass2r.out 2> ./error/ass2r.out
+"./compiled/Parser.exe" ass2w.pls > ./output/ass2w.out 2> ./error/ass2w.out
+
 fc /B "%cd%\output\ass3e.out" "%cd%\expected\ass3e.out" >nul
 if %errorlevel%==1 (echo ass3e.out: Fail)
 if %errorlevel%==0 (echo ass3e.out: Pass)
