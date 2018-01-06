@@ -192,7 +192,9 @@ Token malar_next_token(Buffer * sc_buf)
 				}
 				return t;
 			}
-			while ((c = b_getc(sc_buf)) != '\n') { 
+
+			while (c != '\n' && c!= SEOF) { 
+				c = b_getc(sc_buf);
 				continue;
 			}
 			++line;
