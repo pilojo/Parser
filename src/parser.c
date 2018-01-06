@@ -1,3 +1,56 @@
+/*
+File name : parser.c
+Compiler : MS Visual Studio 2015
+Author : John Pilon, 040822687; Daniel Brenot, 040837035
+Course : CST 8152 – Compilers, Lab Section : 12
+Assignment : 3
+Date : January 4th, 2018
+Professor : Sv.Ranev
+Purpose : Parses the tokens collected by the scanner according to the PLATYPUS grammar specifications
+Function list :
+void parser(Buffer*);
+void gen_incode(char*);
+void match(int, int);
+void syn_eh(int);
+void syn_printe();
+void program();
+void opt_statements();
+void statements();
+void statements_p();
+void statement();
+void assignment_statement();
+void assignment_expression();
+void iteration_statement();
+void selection_statement();
+void read_statement();
+void write_statement();
+void arithmetic_expression();
+void additive_arithmetic_expression();
+void additive_arithmetic_expression_p();
+void multiplicative_arithmetic_expression();
+void multiplicative_arithmetic_expression_p();
+void unary_arithmetic_expression();
+void primary_arithmetic_expression();
+void string_expression();
+void string_expression_p();
+void primary_string_expression();
+void pre_condition();
+void conditional_expression();
+void logical_OR_expression();
+void logical_OR_expression_p();
+void logical_AND_expression();
+void logical_AND_expression_p();
+void primary_a_relational_expression();
+void primary_s_relational_expression();
+void primary_string_expression();
+void relational_expression();
+void relational_expression_p();
+void relational_expression_s_p();
+void variable_identifier();
+void variable_list();
+void variable_list_p();
+*/
+
 #include <stdlib.h>
 
 #include "parser.h"
@@ -13,6 +66,13 @@
 #define WHILE 8
 #define WRITE 9
 
+/*
+Purpose: Begins the parsing program
+Author : Svillen Ranev
+History / Versions : 1.0
+Called functions : malar_next_token(Buffer*), program(), match(int, int)
+Parameters : in_buf, buffer used for the scanner
+*/
 void parser(Buffer* in_buf){
 	sc_buf = in_buf;
 	lookahead = malar_next_token(sc_buf);
@@ -20,10 +80,24 @@ void parser(Buffer* in_buf){
 	gen_incode("PLATY: Source file parsed");
 }
 
+/*
+Purpose: Generates a message after a production has been parsed
+Author : Daniel Brenot
+History / Versions : 1.0
+Called functions : printf(char*, char*...)
+Parameters : message, the message to be printed
+*/
 void gen_incode(char* message){
 	printf("%s\n", message);
 }
 
+/*
+Purpose: Checks to see if the token given by the scanner matches the expected token
+Authors: John Pilon, Daniel Brenot
+History / Versions : 1.5
+Called functions : malar_next_token(Buffer*), syn_printe(), syn_eh(int)
+Parameters : pr_token_code, token code to match; pr_token_attribute, token attribute to match
+*/
 void match(int pr_token_code, int pr_token_attribute){
 	
 	if(lookahead.code == pr_token_code){
@@ -54,6 +128,14 @@ void match(int pr_token_code, int pr_token_attribute){
 	syn_eh(pr_token_code);
 }
 
+/*
+Purpose: Handles errors
+Author : Daniel Brenot
+History / Versions : 1.2
+Called functions : malar_next_token(Buffer*), exit();
+Parameters : sync_token_code, the token code of a token that would be safe to continue parsing with
+Algorithm: Continually search for tokens until a safe token is found
+*/
 void syn_eh(int sync_token_code){
 	while(lookahead.code != SEOF_T){
 		
@@ -71,6 +153,12 @@ void syn_eh(int sync_token_code){
 	}
 }
 
+/*
+Purpose: Prints the error
+Author : Svillen Ranev
+History / Versions : 1.0
+Called functions : printf(char*, char*...), b_location(Buffer*, int)
+*/
 void syn_printe() {
 	Token t = lookahead;
 
@@ -142,10 +230,19 @@ void syn_printe() {
 	}/*end switch*/
 }
 
+/********************************************************************************************
+
+	PRODUCTION FUNCTIONS
+
+*********************************************************************************************/
+
 /*
    <program>  ->
     PLATYPUS {<opt_statements>}
+
    FIRST SET = { PLATYPUS, { }
+
+   Author: John Pilon
 */
 void program(){
 	match(KW_T, PLATYPUS); match(LBR_T, NO_ATTR);
@@ -157,7 +254,10 @@ void program(){
 /*
    <opt_statements> ->
     <statements> | E
-   FIRST SET = { AVID , E }
+
+   FIRST SET = { AVID, SVID, IF, READ, WRITE, WHILE, E }
+
+   Author: John Pilon
 */
 void opt_statements(){
 	
@@ -186,7 +286,9 @@ void opt_statements(){
 /*
 <statements> -> <statement><statements’>
 
-FIRST SET = { AVID, E }
+FIRST SET = { AVID, SVID, IF, READ, WRITE, WHILE, E }
+
+Author: John Pilon
 */
 void statements(){
 	statement();
@@ -197,7 +299,9 @@ void statements(){
 	
 <statements’> -> <statement><statements’> | E
 
-FIRST SET = { AVID , E }
+FIRST SET = { AVID, SVID, IF, READ, WRITE, WHILE, E }
+
+Author: John Pilon
 */
 void statements_p(){
 	switch(lookahead.code){
@@ -222,6 +326,8 @@ void statements_p(){
 | <output statement>
 
 FIRST SET = { AVID, SVID, IF, READ, WRITE, WHILE }
+
+Author: John Pilon
 */
 void statement(){
 	switch(lookahead.code){
@@ -256,6 +362,8 @@ void statement(){
 <assignment expression>;
 
 FIRST SET = { AVID, SVID }
+
+Author: John Pilon
 */
 void assignment_statement(){
 	assignment_expression();
@@ -268,6 +376,8 @@ AVID = <arithmetic expression>
 | SVID = <string expression>
 
 FIRST SET = { AVID, SVID }
+
+Author: John Pilon
 */
 void assignment_expression(){
 	switch(lookahead.code){
@@ -294,6 +404,8 @@ WHILE <pre-condition> (<conditional expression>)
 REPEAT { <statements>};
 
 FIRST SET = { WHILE, '(' }
+
+Author: John Pilon
 */
 void iteration_statement(){
 	match(KW_T, WHILE); pre_condition();
@@ -306,7 +418,9 @@ void iteration_statement(){
 IF TRUE (<conditional expression>) THEN { <opt_statements> }
 ELSE { <opt_statements> } ;
 
-FIRST SET = { IF, '(' }
+FIRST SET = { IF, TRUE }
+
+Author: John Pilon
 */
 void selection_statement(){
 		match(KW_T, IF); match(KW_T, TRUE); match(LPR_T, NO_ATTR); conditional_expression(); match(RPR_T, NO_ATTR);
@@ -319,6 +433,8 @@ void selection_statement(){
 READ (<variable list>);
 
 FIRST SET = { READ, '(' }
+
+Author: John Pilon
 */
 void read_statement(){
 	match(KW_T, READ); match(LPR_T, NO_ATTR); variable_list(); match(RPR_T, NO_ATTR); match(EOS_T, NO_ATTR);	
@@ -330,6 +446,8 @@ void read_statement(){
 WRITE (<output list>);
 
 FIRST SET = { WRITE, '(' }
+
+Author: John Pilon
 */
 void write_statement() {
 	match(KW_T, WRITE); match(LPR_T, NO_ATTR);
@@ -354,6 +472,8 @@ void write_statement() {
 | <additive arithmetic expression>
 
 FIRST SET = { -, +, AVID, FPL, INL, '(' }
+
+Author: John Pilon
 */
 void arithmetic_expression(){
 	switch(lookahead.code){
@@ -381,6 +501,8 @@ void arithmetic_expression(){
 <multiplicative arithmetic expression> <additive arithmetic expression'>
 
 FIRST SET = { +, *, AVID, FPL, INL, ( }
+
+Author: Daniel Brenot
 */
 void additive_arithmetic_expression(){
 	multiplicative_arithmetic_expression();
@@ -394,6 +516,8 @@ void additive_arithmetic_expression(){
 
 
 FIRST SET = { +, - }
+
+Author: Daniel Brenot
 */
 void additive_arithmetic_expression_p()
 {
@@ -411,6 +535,8 @@ void additive_arithmetic_expression_p()
 <primary arithmetic expression> <multiplicative arithmetic expression'>
 
 FIRST SET = { AVID, FPL, INL, '(' } 
+
+Author: Daniel Brenot
 */
 void multiplicative_arithmetic_expression(){
 	primary_arithmetic_expression();
@@ -423,6 +549,8 @@ void multiplicative_arithmetic_expression(){
 	| / <primary arithmetic expression> <multiplicative arithmetic expression'>
 
 FIRST_SET = { *, / } 
+
+Author: John Pilon
 */
 void multiplicative_arithmetic_expression_p(){
 	if (lookahead.code == ART_OP_T &&lookahead.attribute.arr_op != PLUS &&lookahead.attribute.arr_op != MINUS)
@@ -441,6 +569,8 @@ void multiplicative_arithmetic_expression_p(){
 
 
 FIRST SET = { -, + }
+
+Author: John Pilon
 */
 void unary_arithmetic_expression(){
 	switch(lookahead.code){
@@ -467,6 +597,8 @@ void unary_arithmetic_expression(){
 | (<arithmetic expression>)
 
 FIRST SET = { AVID, FPL, INL, '(' }
+
+Author: John Pilon
 */
 void primary_arithmetic_expression(){
 	switch(lookahead.code){
@@ -489,6 +621,8 @@ void primary_arithmetic_expression(){
 <primary string expression> <string expression'>
 
 FIRST_SET = { SVID, STL }
+
+Author: John Pilon
 */
 void string_expression(){
 	primary_string_expression();
@@ -501,6 +635,8 @@ void string_expression(){
  #<primary string expression> <string expression'> | E
 
 FIRST SET = { #, E }
+
+Author: John Pilon
 */
 void string_expression_p(){
 	if(lookahead.code == SCC_OP_T){
@@ -516,6 +652,8 @@ void string_expression_p(){
 | <string literal>
 
 FIRST_SET = { SVID, STL }
+
+Author: Daniel Brenot
 */
 void primary_string_expression()
 {
@@ -535,6 +673,8 @@ void primary_string_expression()
 TRUE | FALSE
 
 FIRST SET = { TRUE, FALSE }
+
+Author: Daniel Brenot
 */
 void pre_condition(){
 	switch(lookahead.code){
@@ -561,6 +701,8 @@ void pre_condition(){
 <logical OR  expression>
 
 FIRST_SET = { AVID, SVID, FPL, INL, STL }
+
+Author: Daniel Brenot
 */
 void conditional_expression(){
 	logical_OR_expression();
@@ -572,6 +714,8 @@ void conditional_expression(){
 <logical AND expression> <logical OR expression'>
 
 FIRST SET = { AVID, SVID, FPL, INL, STL }
+
+Author: Daniel Brenot
 */
 void logical_OR_expression(){
 	logical_AND_expression();
@@ -583,6 +727,8 @@ void logical_OR_expression(){
 .OR. <logical AND expression> <logical OR expression'>
 
 FIRST SET = { .OR., AVID, SVID, FPL, INL, STL }
+
+Author: Daniel Brenot
 */
 void logical_OR_expression_p(){
 	if (lookahead.code != LOG_OP_T || lookahead.attribute.log_op != OR) return;
@@ -597,6 +743,8 @@ void logical_OR_expression_p(){
 <relational expression> <logical AND expression'>
 
 FIRST SET = { AVID, SVID, FPL, INL, STL }
+
+Author: Daniel Brenot
 */
 void logical_AND_expression(){
 	relational_expression();
@@ -608,6 +756,8 @@ void logical_AND_expression(){
 .AND. <relational expression> <logical AND expression'>
 
 FIRST SET = { .AND., AVID, SVID, FPL, INL, STL }
+
+Author: John Pilon
 */
 void logical_AND_expression_p(){
 	if (lookahead.code != LOG_OP_T || lookahead.attribute.log_op != AND)return;
@@ -624,6 +774,8 @@ void logical_AND_expression_p(){
 | <integer literal>
 
 FIRST SET = { AVID, FPL, INL }
+
+Author: John Pilon
 */
 void primary_a_relational_expression(){
 	switch(lookahead.code){
@@ -638,9 +790,11 @@ void primary_a_relational_expression(){
 
 /*
 <primary s_relational expression> ->
-<string literal> | <string variable identifier>
+<string variable identifier> | <string literal>
 
-FIRST_SET = { STL, SVID }
+FIRST_SET = { SVID, STL }
+
+Author: John Pilon
 */
 void primary_s_relational_expression(){
 	primary_string_expression();
@@ -653,6 +807,8 @@ void primary_s_relational_expression(){
 | <primary s_relational expression> <primary s_relational expression'>
 
 FIRST SET = { AVID, SVID }
+
+Author: Daniel Brenot
 */
 void relational_expression() {
 	switch(lookahead.code){
@@ -679,6 +835,8 @@ void relational_expression() {
 | < <primary a_relational expression>
 
 FIRST_SET = { ==, <>, >, <, AVID }
+
+Author: John Pilon
 */
 void relational_expression_p(){
 	if (lookahead.code == REL_OP_T)
@@ -702,6 +860,8 @@ void relational_expression_p(){
 | < <primary s_relational expression>
 
 FIRST SET = { ==, <>, >, <, SVID }
+
+Author: John Pilon
 */
 void relational_expression_s_p()
 {
@@ -723,6 +883,8 @@ void relational_expression_s_p()
 <arithmetic variable identifier> | <string variable identifier
 
 FIRST SET = { AVID, SVID }
+
+Author: John Pilon
 */
 void variable_identifier()
 {
@@ -739,7 +901,9 @@ void variable_identifier()
 /*
 <variable list> -> <variable identifier>, <variable list’>
 
-FIRST SET = { AVID, ',' }
+FIRST SET = { AVID, SVID, ',' }
+
+Author: John Pilon
 */
 void variable_list(){
 	variable_identifier();
@@ -751,6 +915,8 @@ void variable_list(){
 <variable list’> -> <variable identifier>, <variable list’> | E
 
 FIRST SET = { AVID, SVID, E, ',' } 
+
+Author: John Pilon
 */
 void variable_list_p(){
 	if (lookahead.code != COM_T) return;

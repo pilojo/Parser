@@ -17,4 +17,4 @@ PLATYPUS{
  WRITE();
  WRITE("Results: ");
  WRITE(d,e,f,a);
-}
+}!!a

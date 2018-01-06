@@ -187,13 +187,13 @@ Token malar_next_token(Buffer * sc_buf)
 				t.attribute.err_lex[0] = '!';
 				t.attribute.err_lex[1] = c;
 				t.attribute.err_lex[2] = '\0';
-				while (((c = b_getc(sc_buf)) != '\n') && c!=SEOF) { 
+				while (((c = b_getc(sc_buf)) != '\n') && c != SEOF) {
 					continue;
 				}
 				return t;
 			}
 
-			while (c != '\n' && c!= SEOF) { 
+			while (c != '\n' && c != SEOF) {
 				c = b_getc(sc_buf);
 				continue;
 			}
@@ -462,7 +462,6 @@ Token aa_func05(char lexeme[]) {
 Token aa_func08(char lexeme[])
 {
 	Token t;
-	char decimal = (char)(strchr(lexeme, '.') - lexeme);
 	double flt = 0;
 	flt = atof(lexeme);
 	if (flt == INFINITY || flt == NAN || flt < PLATY_INT_MIN || flt > PLATY_INT_MAX)
