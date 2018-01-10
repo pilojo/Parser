@@ -94,7 +94,7 @@ Buffer *b_allocate(short init_capacity, char inc_factor, char o_mode) {
 	if (!charArry && init_capacity > 0) return NULL;
 
 	/* assign remaining structure members */
-	newBuffer->mode = mode;
+	newBuffer->mode = mode; /*C6001/C4701 Acknowledgement: Variable initialized no matter what*/
 	newBuffer->inc_factor = inc_factor;
 	newBuffer->cb_head = charArry;
 	newBuffer->capacity = init_capacity;
@@ -134,7 +134,7 @@ pBuffer b_addc(pBuffer const pBD, char symbol) {
 			if (pBD->capacity >= (MAX_CAPACITY)) return NULL;
 			newCapacity = (long)(pBD->capacity + ((((MAX_CAPACITY) - pBD->capacity) * pBD->inc_factor) / 100));
 			/* Fix for calculation resulting in 0 growth when there is still memory available to be used */
-			if (newCapacity == pBD->capacity) newCapacity = MAX_CAPACITY;
+			if (newCapacity == (unsigned short)pBD->capacity) newCapacity = MAX_CAPACITY;
 			/* Check if capacity overflowed */
 			if (newCapacity >= MAX_CAPACITY) newCapacity = MAX_CAPACITY;
 			tempStorage = (char*)realloc(pBD->cb_head, newCapacity); /* assign array with new capacity */

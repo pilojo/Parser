@@ -1,9 +1,18 @@
+/*
+File name : parser.h
+Compiler : MS Visual Studio 2015
+Author : John Pilon, 040822687; Daniel Brenot, 040837035
+Course : CST 8152 – Compilers, Lab Section : 12
+Assignment : 3
+Date : January 4th, 2018
+Professor : Sv.Ranev
+Purpose : Header to define functions and global variables used in the Parser
+*/
 #ifndef PARSER_H
 #define PARSER_H
 
 #include "buffer.h"
 #include "token.h"
-//#include "table.h"
 
 #define NO_ATTR -1
 
