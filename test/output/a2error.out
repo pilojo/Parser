@@ -50,6 +50,8 @@ Not$here
 
 Parsing the source file...
 
+void main(int argc, char**argv){
+
 PLATY: Syntax error:  Line:  9
 *****  Token code:  2 Attribute: a1234567
 

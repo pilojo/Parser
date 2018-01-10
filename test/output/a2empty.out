@@ -11,6 +11,8 @@ Printing input buffer contents:
 
 Parsing the source file...
 
+void main(int argc, char**argv){
+
 PLATY: Syntax error:  Line:  1
 *****  Token code:  1 Attribute: NA
 

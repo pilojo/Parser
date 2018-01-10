@@ -1,4 +1,4 @@
-Reading file ass3w4.pls ....Please wait
+Reading file test/ass3w4.pls ....Please wait
 
 Printing input buffer parameters:
 
@@ -25,65 +25,104 @@ PLATYPUS{
 
 Parsing the source file...
 
-PLATY: Primary a_relational expression parsed
-PLATY: Primary a_relational expression parsed
-PLATY: Relational expression parsed
+void main(int argc, char**argv){
+
+while
+(!(
+a
+==
+b
 PLATY: Conditional expression parsed
+))
 PLATY: Syntax error:  Line:  7
 *****  Token code:  9 Attribute: 2
+{
+
+if
+(
 PLATY: Syntax error:  Line:  8
 *****  Token code: 13 Attribute: NA
-PLATY: Relational expression parsed
 PLATY: Conditional expression parsed
-PLATY: Primary arithmetic expression parsed
+)
+{
+
+a
+=
+b
 PLATY: Arithmetic expression parsed
-PLATY: Assignment expression (arithmetic) parsed
+;
+
 PLATY: Syntax error:  Line:  8
 *****  Token code: 10 Attribute: 1
-PLATY: Assignment statement parsed
+}
+else
+{
+
 PLATY: Syntax error:  Line:  8
 *****  Token code: 16 Attribute: ELSE
-PLATY: Opt_statements parsed
-PLATY: Selection statement parsed
+}
+;
+
+while
+((
 PLATY: Primary string expression parsed
 PLATY: Primary s_relational expression parsed
 PLATY: Primary string expression parsed
 PLATY: Primary s_relational expression parsed
-PLATY: Relational expression parsed
 PLATY: Conditional expression parsed
+))
+{
+
 PLATY: Syntax error:  Line:  9
 *****  Token code: 15 Attribute: NA
-PLATY: Iteration statement parsed
-PLATY: Primary arithmetic expression parsed
+}
+;
+
+a
+=
+(
+a
 PLATY: Arithmetic expression parsed
+)
 PLATY: Syntax error:  Line: 10
 *****  Token code:  3 Attribute: badLong$
-PLATY: Primary arithmetic expression parsed
-PLATY: Primary arithmetic expression parsed
++
+(
+good
 PLATY: Arithmetic expression parsed
+)
 PLATY: Syntax error:  Line: 10
 *****  Token code:  2 Attribute: badLong8
-PLATY: Primary arithmetic expression parsed
-PLATY: Primary arithmetic expression parsed
+*
+(
+good
 PLATY: Arithmetic expression parsed
+)
 PLATY: Syntax error:  Line: 10
 *****  Token code:  4 Attribute:   7.0
-PLATY: Primary arithmetic expression parsed
-PLATY: Multiplicative arithmetic expression parsed
-PLATY: Additive arithmetic expression parsed
 PLATY: Arithmetic expression parsed
-PLATY: Assignment expression (arithmetic) parsed
-PLATY: Assignment statement parsed
-PLATY: Iteration statement parsed
-PLATY: Primary a_relational expression parsed
-PLATY: Primary a_relational expression parsed
-PLATY: Relational expression parsed
+;
+
+}
+;
+
+if
+(
+c
+>
+0
 PLATY: Conditional expression parsed
+)
+{
+
 PLATY: Syntax error:  Line: 12
 *****  Token code: 16 Attribute: ELSE
-PLATY: Opt_statements parsed
+}
+else
 PLATY: Syntax error:  Line: 12
 *****  Token code: 18 Attribute: NA
+{
+
 PLATY: Syntax error:  Line: 13
 *****  Token code: 12 Attribute: NA
 

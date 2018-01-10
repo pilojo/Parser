@@ -1,25 +1,27 @@
-/* Filename: token.h 
-* Token declarations necessary for the scanner implementation
-* CST8152, Assignment #2
-* Version: 1.17.2
-* Date: 1 October 2017
-* Provided by: Svillen Ranev
-* The file is complete and MUST NOT be modified.
+/*
+File name : token.h
+Compiler : MS Visual Studio 2015
+Author : John Pilon, 040822687; Daniel Brenot, 040837035
+Course : CST 8152 – Compilers, Lab Section : 12
+Assignment : 3
+Date : January 4th, 2018
+Professor : Sv.Ranev
+Purpose : Header to define Tokens
 */
 #ifndef TOKEN_H_
 #define TOKEN_H_
 
 #pragma warning(1:4001) /*to enforce C89 type comments  - to make //comments an warning */
 
-							/*#pragma warning(error:4001)*//* to enforce C89 comments - to make // comments an error */
+/*#pragma warning(error:4001)*//* to enforce C89 comments - to make // comments an error */
 
-														   /* Constants */
+							   /* Constants */
 
 #define VID_LEN 8   /* variable identifier length */
 #define ERR_LEN 20  /* error message length */
 #define INL_LEN 5   /* maximum number of digits for IL */
 
-														   /* Token codes */
+							   /* Token codes */
 
 #define ERR_T     0  /* Error token */
 #define SEOF_T    1  /* Source end-of-file token */
@@ -41,8 +43,11 @@
 #define COM_T    17  /* Comma token */
 #define EOS_T    18  /* End of statement *(semi - colon) */
 
-
-														   /* Operators token attributes */
+#define NOTFOUND 0
+#define INTEGER 1
+#define FLOAT 2
+#define STRING 3
+							   /* Operators token attributes */
 
 typedef enum ArithmeticOperators { PLUS, MINUS, MULT, DIV } Arr_Op;
 typedef enum RelationalOperators { EQ, NE, GT, LT } Rel_Op;
@@ -68,6 +73,8 @@ typedef union TokenAttribute {
 typedef struct Token
 {
 	int code;                 /* token code */
+	unsigned char type; /*VID Type*/
+	unsigned int line; /*The line the token existed on*/
 	TA attribute; /* token attribute */
 } Token;
 

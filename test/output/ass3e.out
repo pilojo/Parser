@@ -15,8 +15,8 @@ PLATYPUS{}ÿ
 
 Parsing the source file...
 
-PLATY: Opt_statements parsed
-PLATY: Program parsed
-PLATY: Source file parsed
+void main(int argc, char**argv){
+
+}
 
 Collecting garbage...

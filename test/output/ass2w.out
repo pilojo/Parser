@@ -38,6 +38,8 @@ WRITE (""My Scanner has gone astray");
 
 Parsing the source file...
 
+void main(int argc, char**argv){
+
 PLATY: Syntax error:  Line:  6
 *****  Token code:  0 Attribute: !=
 PLATY: Syntax error:  Line: 20

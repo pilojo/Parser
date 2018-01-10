@@ -13,17 +13,27 @@ Purpose : Header to define functions and global variables used in the Parser
 
 #include "buffer.h"
 #include "token.h"
+#include "symbol_table.h"
 
 #define NO_ATTR -1
 
+typedef struct LinkedListDescriptor { Token* current; struct LinkedListDescriptor * next; }LinkedList;
 Token malar_next_token(Buffer*);
 
 Token lookahead;
 Buffer* sc_buf;
+Buffer* out_buf;
+SymbolTable *sc_st;
 int synerrno;
 extern int line;
 extern char * kw_table[];
 extern Buffer * str_LTBL;
+LinkedList* tokenList;/*The linked list of variables currently being stored*/
+char ** currentDefines;/*The number of define statements in the list*/
+char ** currentStatements;/*The statements defined in the current scope*/
+short statementsSize;/*The number of statements*/
+short scopes = 1;
+
 
 void parser(Buffer*);
 void gen_incode(char*);
@@ -67,4 +77,8 @@ void variable_identifier();
 void variable_list();
 void variable_list_p();
 
+/*Cross Compiler Functions*/
+void appendDefine(int, char*);
+void appendToken();
+void clearList(LinkedList*);
 #endif

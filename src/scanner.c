@@ -376,7 +376,7 @@ Token aa_func02(char lexeme[])
 {
 	Token token;
 
-	if ((token.attribute.kwt_idx = iskeyword(lexeme)) != -1) { 
+	if ((token.attribute.kwt_idx = iskeyword(lexeme)) != -1) {
 		token.code = KW_T;
 	}
 	else {
@@ -389,9 +389,10 @@ Token aa_func02(char lexeme[])
 			token.attribute.vid_lex[strlen(lexeme)] = '\0';
 		}
 		token.code = AVID_T;
+		token.line = line;
+		token.type = INTEGER;
 	}
-
-	return token; 
+	return token;
 }
 
 /* Purpose: Sets the token as a string token and ensures it does not exceed max string size
@@ -419,7 +420,7 @@ Token aa_func03(char lexeme[]) {
 		}
 		token.attribute.vid_lex[strlen(lexeme)] = '\0';
 	}
-
+	token.line = line;
 	return token;
 
 }
@@ -448,6 +449,7 @@ Token aa_func05(char lexeme[]) {
 	}
 	t.code = INL_T;
 	t.attribute.int_value = dec;
+	t.type = INTEGER;
 	return t;
 }
 
@@ -462,6 +464,7 @@ Token aa_func05(char lexeme[]) {
 Token aa_func08(char lexeme[])
 {
 	Token t;
+	char decimal = (char)(strchr(lexeme, '.') - lexeme);
 	double flt = 0;
 	flt = atof(lexeme);
 	if (flt == INFINITY || flt == NAN || flt < PLATY_INT_MIN || flt > PLATY_INT_MAX)
@@ -476,6 +479,7 @@ Token aa_func08(char lexeme[])
 	}
 	t.code = FPL_T;
 	t.attribute.flt_value = (float)flt;
+	t.type = FLOAT;
 	return t;
 }
 
