@@ -2,8 +2,8 @@ Reading file ass3r.pls ....Please wait
 
 Printing input buffer parameters:
 
-The capacity of the buffer is:  447
-The current size of the buffer is:  447
+The capacity of the buffer is:  450
+The current size of the buffer is:  450
 
 Printing input buffer contents:
 
@@ -26,7 +26,7 @@ PLATYPUS{
  WRITE();
  WRITE("Results: ");
  WRITE(d,e,f,a);
-}ÿ
+}!!aÿ
 
 Parsing the source file...
 
