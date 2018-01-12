@@ -1,0 +1,29 @@
+void main(int argc, char**argv){
+int i;
+float sum008;
+float a;
+a=+0;
+sum008=7.871;
+scanf("%d\n",&a);
+scanf("%d\n",&sum008);
+i=0;
+while((i<32767||i==32767)){
+i=i+2;
+{a=a*i/0.5;
+sum008=sum008+a-1;
+}
+if(text$""){
+char * text$="prog""ram";
+}
+}else{
+char * text$=text$"ram";
+}
+printf("\* This is a platypus -:)-<-<-- \*");
+text$);
+if(text$"program"||sum008!=8&&i>16){
+printf("%d\n",sum008);
+printf("\n");
+}
+else{
+}
+}

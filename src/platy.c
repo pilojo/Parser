@@ -4,6 +4,7 @@
  *  Version: 1.17.2
  *  Author: Svillen Ranev
  *  Date: 25 November 2017
+ *  Modified by:Daniel Brenot, John Pilon
  */ 
 
 /* The #define _CRT_SECURE_NO_WARNINGS should be used in MS Visual Studio projects
@@ -51,7 +52,6 @@ extern void parser(Buffer * sc_buf);
 /* extern Token malpar_next_token(Buffer * sc_buf);*/
 
 void err_printf(char *fmt, ...);
-void display (Buffer *ptrBuffer); 
 long get_filesize(char *fname);
 void garbage_collect(void);
 
@@ -97,7 +97,6 @@ int main(int argc, char ** argv){
 		exit (1);
 	}
 /* load source file into input buffer  */
-     printf("Reading file %s ....Please wait\n",argv[1]);
      loadsize = b_load (fi,sc_buf);
      if(loadsize == RT_FAIL1)
        err_printf("%s%s%s",argv[0],": ","Error in loading buffer.");
@@ -110,9 +109,7 @@ int main(int argc, char ** argv){
      printf("Input file size: %ld\n", get_filesize(argv[1]));
     }
 /* Add SEOF (EOF) to input buffer and display the source buffer */
-      if(b_compact(sc_buf,EOF)){
-         display(sc_buf);
-      }
+	b_compact(sc_buf, EOF);
 
 /* create string Literal Table */	
   str_LTBL = b_allocate(INIT_CAPACITY,INC_FACTOR,'a');
@@ -130,7 +127,6 @@ int main(int argc, char ** argv){
 	scanner_init(sc_buf);
 
 /* Start parsing */
-	printf("\nParsing the source file...\n\n");
 	
         parser(sc_buf);
              
@@ -168,17 +164,6 @@ long get_filesize(char  *fname){
    return flength;
 }
 
-/* The function display buffer contents 
- */
-void display (Buffer *ptrBuffer){
-  printf("\nPrinting input buffer parameters:\n\n");
-  printf("The capacity of the buffer is:  %d\n",b_capacity(ptrBuffer));
-  printf("The current size of the buffer is:  %d\n",b_limit(ptrBuffer)); 
-  printf("\nPrinting input buffer contents:\n\n");
-  b_rewind(ptrBuffer);
-  b_print(ptrBuffer);
-}
-
 /* The function frees all dynamically allocated memory. 
    This function is always called
    despite how the program terminates - normally or abnormally. 
@@ -186,7 +171,6 @@ void display (Buffer *ptrBuffer){
 void garbage_collect(void){
   if(synerrno)
     printf("\nSyntax errors: %d\n",synerrno);
-  printf("\nCollecting garbage...\n");
   b_free(sc_buf);
   b_free(str_LTBL);  
 }

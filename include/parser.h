@@ -2,7 +2,7 @@
 File name : parser.h
 Compiler : MS Visual Studio 2015
 Author : John Pilon, 040822687; Daniel Brenot, 040837035
-Course : CST 8152 – Compilers, Lab Section : 12
+Course : CST 8152 ? Compilers, Lab Section : 12
 Assignment : 3
 Date : January 4th, 2018
 Professor : Sv.Ranev
@@ -29,8 +29,8 @@ extern int line;
 extern char * kw_table[];
 extern Buffer * str_LTBL;
 LinkedList* tokenList;/*The linked list of variables currently being stored*/
-char ** currentDefines;/*The number of define statements in the list*/
-char ** currentStatements;/*The statements defined in the current scope*/
+char * currentline;/*The define statements in the list*/
+char * currentStatements;/*The statements defined in the current scope*/
 short statementsSize;/*The number of statements*/
 short scopes = 1;
 
@@ -51,13 +51,13 @@ void iteration_statement();
 void selection_statement();
 void read_statement();
 void write_statement();
-void arithmetic_expression();
-void additive_arithmetic_expression();
-void additive_arithmetic_expression_p();
-void multiplicative_arithmetic_expression();
-void multiplicative_arithmetic_expression_p();
-void unary_arithmetic_expression();
-void primary_arithmetic_expression();
+int arithmetic_expression();
+int additive_arithmetic_expression();
+int additive_arithmetic_expression_p();
+int multiplicative_arithmetic_expression();
+int multiplicative_arithmetic_expression_p();
+int unary_arithmetic_expression();
+int primary_arithmetic_expression();
 void string_expression();
 void string_expression_p();
 void primary_string_expression();
@@ -82,3 +82,4 @@ void appendDefine(int, char*);
 void appendToken();
 void clearList(LinkedList*);
 #endif
+

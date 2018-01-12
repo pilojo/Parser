@@ -74,6 +74,8 @@ Called functions : malar_next_token(Buffer*), program(), match(int, int)
 Parameters : in_buf, buffer used for the scanner
 */
 void parser(Buffer* in_buf){
+	currentStatements = NULL;
+	currentline = NULL;
 	sc_buf = in_buf;
 	sc_st = t_allocate(1000);/*Allocates symbol table*/
 	lookahead = malar_next_token(sc_buf);
@@ -87,8 +89,52 @@ History / Versions : 1.0
 Called functions : printf(char*, char*...)
 Parameters : message, the message to be printed
 */
-void gen_incode(char* message){
-	printf("%s", message);
+void gen_incode(char* message)
+{
+	int newLen = (strlen(message) + (currentline?strlen(currentline):0) + 1);
+	char * new = (char *)malloc(sizeof(char)*newLen);
+	
+	
+	
+	sprintf(new, "%s%s", currentline?currentline:"", message);
+	if (currentline)
+	{
+		free(currentline);
+		currentline = NULL;
+	}
+	currentline = new;
+	if (currentline[newLen - 2]=='\n')
+	{
+		if (strlen(message) == 2 && message[0] == '}')
+		{
+			newLen += currentStatements ? strlen(currentStatements) : 0;
+			newLen += scopes - 1;
+			new = (char*)malloc(sizeof(char)*newLen);
+			sprintf(new, "%s%s", currentStatements ? currentStatements : "", currentline);
+			while (scopes > 1)
+			{
+				sprintf(new, "%s%s", new, "}");
+				scopes--;
+			}
+		}
+		else
+		{
+			newLen += currentStatements ? strlen(currentStatements) : 0;
+			new = (char*)malloc(sizeof(char)*newLen);
+			sprintf(new, "%s%s", currentStatements ? currentStatements : "", currentline);
+		}
+		if (currentStatements) {
+			free(currentStatements);
+			currentStatements = NULL;
+		}
+		if (currentline)
+		{
+			free(currentline);
+			currentline = NULL;
+		}
+		currentStatements = new;
+		
+	}
 }
 
 /*
@@ -246,11 +292,12 @@ void syn_printe() {
 */
 void program(){
 	int i;
-	gen_incode("void main(int argc, char**argv){\n");
+	printf("void main(int argc, char**argv){\n");
 	match(KW_T, PLATYPUS); match(LBR_T, NO_ATTR);
 	opt_statements();
+	printf("%s",currentStatements?currentStatements:NULL);
 	/*Appends the closing braces*/
-	for (i = 0; i < scopes; i++) { gen_incode("}"); }
+	for (i = 0; i < scopes; i++) { printf("}\n"); }
 	match(RBR_T, NO_ATTR);
 }
 
@@ -379,7 +426,7 @@ Author: John Pilon
 */
 void assignment_expression() {
 	unsigned char ret;
-	Token* token;
+	Token token;
 	switch (lookahead.code) {
 	case AVID_T:
 		ret = t_locate(*sc_st, lookahead.attribute.vid_lex, &token);
@@ -387,12 +434,45 @@ void assignment_expression() {
 		{
 			lookahead.type = INTEGER;
 			table_adds(sc_st, lookahead);
+			token = lookahead;
 		}
+
+
 		gen_incode(lookahead.attribute.vid_lex);
 		match(AVID_T, NO_ATTR);
 		gen_incode("=");
 		match(ASS_OP_T, NO_ATTR);
-		arithmetic_expression();
+		token.type = arithmetic_expression();
+		if (ret == INTEGER &&  token.type== FLOAT)
+		{
+			/*Shadow scope and redefine as float*/
+			printf("%s{",currentStatements?currentStatements:"");
+			if (currentStatements)
+			{
+				free(currentStatements);
+				currentStatements = NULL;
+			}
+			scopes++;
+		}
+		else if (ret == NOTFOUND)
+		{
+			char * new = (char*)malloc(sizeof(char)*17);
+			int newLen = (16 + (currentStatements?strlen(currentStatements):0) + 1);
+			/*Add a define to the beginning of current scope*/
+			switch (token.type)
+			{
+			case INTEGER:sprintf(new, "int %s;\n", token.attribute.vid_lex);
+				break;
+			case FLOAT:sprintf(new, "float %s;\n",token.attribute.vid_lex);
+				break;
+			}
+			
+			
+			char * appended = (char *)malloc(sizeof(char)*newLen);
+			sprintf(appended, "%s%s", new, currentStatements ? currentStatements : "");
+			if (currentStatements)free(currentStatements);
+			currentStatements = appended;
+		}
 		break;
 	case SVID_T:
 		ret = t_locate(*sc_st, lookahead.attribute.vid_lex, &token);
@@ -401,6 +481,7 @@ void assignment_expression() {
 			lookahead.type = STRING;
 			table_adds(sc_st, lookahead);
 		}
+		gen_incode("char * ");
 		gen_incode(lookahead.attribute.vid_lex);
 		match(SVID_T, NO_ATTR);
 		gen_incode("=");
@@ -435,7 +516,7 @@ void iteration_statement() {
 	statements();
 	gen_incode("}");
 	match(RBR_T, NO_ATTR);
-	gen_incode(";\n");
+	gen_incode("\n");
 	match(EOS_T, NO_ATTR);
 }
 /*
@@ -460,7 +541,7 @@ void selection_statement() {
 	gen_incode("{\n");
 	match(LBR_T, NO_ATTR);
 	opt_statements();
-	gen_incode("}");
+	gen_incode("}\n");
 	match(RBR_T, NO_ATTR);
 	gen_incode("else");
 	match(KW_T, ELSE);
@@ -469,7 +550,7 @@ void selection_statement() {
 	opt_statements();
 	gen_incode("}");
 	match(RBR_T, NO_ATTR);
-	gen_incode(";\n");
+	gen_incode("\n");
 	match(EOS_T, NO_ATTR);
 }
 
@@ -481,10 +562,11 @@ FIRST SET = { READ, '(' }
 Author: John Pilon
 */
 void read_statement() {
-	LinkedList* iterator = tokenList;
+	LinkedList* iterator;
 	match(KW_T, READ);
 	match(LPR_T, NO_ATTR);
 	variable_list();
+	iterator = tokenList;
 	/*Create all print statements here*/
 	while (iterator)
 	{
@@ -512,7 +594,8 @@ Author: John Pilon
 */
 void write_statement() {
 	LinkedList* iterator;
-
+	int strSize=0, i=0;
+	char * temp;
 	match(KW_T, WRITE); match(LPR_T, NO_ATTR);
 	switch (lookahead.code) {
 	case AVID_T:case SVID_T:
@@ -534,11 +617,19 @@ void write_statement() {
 		}
 		break;
 	case STR_T:
+		
 		gen_incode("printf(\"");
-		gen_incode("u fokin wot m8?\");\n");
+		b_mark(str_LTBL, lookahead.attribute.str_offset);
+		b_reset(str_LTBL);
+		while (b_getc(str_LTBL) != '\0') { strSize++; }
+		temp = (char*)malloc(sizeof(char)*(strSize+1));
+		b_reset(str_LTBL);
+		while (strSize >= 0) { temp[i] = b_getc(str_LTBL); strSize--; i++; }
+		gen_incode(temp);
+		gen_incode("\");\n");
 		match(STR_T, NO_ATTR);
 		break;
-	case RPR_T:gen_incode("printf(\"\\n\");");
+	case RPR_T:gen_incode("printf(\"\\n\");\n");
 		break;
 	}
 	match(RPR_T, NO_ATTR); match(EOS_T, NO_ATTR);
@@ -553,24 +644,26 @@ FIRST SET = { -, +, AVID, FPL, INL, '(' }
 
 Author: John Pilon
 */
-void arithmetic_expression(){
+int arithmetic_expression(){
+	int ret = NOTFOUND;
 	switch(lookahead.code){
 	case ART_OP_T:
 		switch (lookahead.attribute.arr_op) {
 		case MULT:case DIV:
 			syn_printe();
-			return;
+			break;
 		}
-		unary_arithmetic_expression();
+		ret = unary_arithmetic_expression();
 		break;
 	case AVID_T: case FPL_T: case INL_T: case LPR_T:
-		additive_arithmetic_expression();
+		ret = additive_arithmetic_expression();
 		break;
 	case EOS_T:
 		return;
 	default:
 		syn_printe();
 	}
+	return ret;
 }
 
 /*
@@ -581,9 +674,10 @@ FIRST SET = { +, *, AVID, FPL, INL, ( }
 
 Author: Daniel Brenot
 */
-void additive_arithmetic_expression(){
-	multiplicative_arithmetic_expression();
-	additive_arithmetic_expression_p();
+int additive_arithmetic_expression(){
+	int ret = multiplicative_arithmetic_expression();
+	ret = additive_arithmetic_expression_p()==FLOAT?FLOAT:ret;
+	return ret;
 }
 
 /* 
@@ -596,8 +690,9 @@ FIRST SET = { +, - }
 
 Author: Daniel Brenot
 */
-void additive_arithmetic_expression_p()
+int additive_arithmetic_expression_p()
 {
+	int ret = NOTFOUND;
 	if (lookahead.code == ART_OP_T &&lookahead.attribute.arr_op != MULT && lookahead.attribute.arr_op != DIV)
 	{
 		switch (lookahead.attribute.arr_op)
@@ -610,9 +705,10 @@ void additive_arithmetic_expression_p()
 			break;
 		}
 		match(lookahead.code, lookahead.attribute.arr_op);
-		multiplicative_arithmetic_expression();
-		additive_arithmetic_expression_p();
+		ret = multiplicative_arithmetic_expression();
+		ret = additive_arithmetic_expression_p() == FLOAT ? FLOAT:ret;
 	}
+	return ret;
 }
 
 /*
@@ -623,9 +719,9 @@ FIRST SET = { AVID, FPL, INL, '(' }
 
 Author: Daniel Brenot
 */
-void multiplicative_arithmetic_expression(){
-	primary_arithmetic_expression();
-	multiplicative_arithmetic_expression_p();
+int multiplicative_arithmetic_expression(){
+	int ret = primary_arithmetic_expression();
+	return multiplicative_arithmetic_expression_p()==FLOAT?FLOAT:ret;
 }
 
 /*
@@ -637,7 +733,8 @@ FIRST_SET = { *, / }
 
 Author: John Pilon
 */
-void multiplicative_arithmetic_expression_p() {
+int multiplicative_arithmetic_expression_p() {
+	int ret = NOTFOUND;
 	if (lookahead.code == ART_OP_T)
 	{
 		switch (lookahead.attribute.arr_op)
@@ -645,18 +742,20 @@ void multiplicative_arithmetic_expression_p() {
 		case MULT:
 			gen_incode("*");
 			match(lookahead.code, lookahead.attribute.arr_op);
-			primary_arithmetic_expression();
-			multiplicative_arithmetic_expression_p();
+			ret = primary_arithmetic_expression();
+			if (multiplicative_arithmetic_expression_p() == FLOAT) ret = FLOAT;
 			break;
 		case DIV:
 			gen_incode("/");
 			match(lookahead.code, lookahead.attribute.arr_op);
 			primary_arithmetic_expression();
 			multiplicative_arithmetic_expression_p();
+			ret = FLOAT;
 			break;
 		}
 
 	}
+	return ret;
 }
 
 /*
@@ -669,25 +768,27 @@ FIRST SET = { -, + }
 
 Author: John Pilon
 */
-void unary_arithmetic_expression() {
+int unary_arithmetic_expression() {
+	int ret = NOTFOUND;
 	switch (lookahead.code) {
 	case ART_OP_T:
 		switch (lookahead.attribute.get_int) {
 		case MULT:
 		case DIV:
 			syn_printe();
-			return;
+			break;
 		case PLUS:gen_incode("+");
 			break;
 		case MINUS:gen_incode("-");
 			break;
 		}
 		match(lookahead.code, lookahead.attribute.arr_op);
-		primary_arithmetic_expression();
+		ret = primary_arithmetic_expression();
 		break;
 	default:
 		syn_printe();
 	}
+	return;
 }
 
 /*
@@ -701,8 +802,8 @@ FIRST SET = { AVID, FPL, INL, '(' }
 
 Author: John Pilon
 */
-void primary_arithmetic_expression() {
-	unsigned char ret;
+int primary_arithmetic_expression() {
+	unsigned char ret = NOTFOUND;
 	Token* token;
 	char * temp[30];
 	switch (lookahead.code) {
@@ -715,27 +816,30 @@ void primary_arithmetic_expression() {
 		}
 		gen_incode(lookahead.attribute.vid_lex);
 		match(lookahead.code, lookahead.attribute.vid_lex);
-		break;
+		return ret;
 	case INL_T:
 		sprintf(temp, "%d", lookahead.attribute.int_value);
 		gen_incode(temp);
 		match(lookahead.code, lookahead.attribute.int_value);
+		ret = INTEGER;
 		break;
 	case FPL_T:
 		sprintf(temp, "%.4g", lookahead.attribute.flt_value);
 		gen_incode(temp);
 		match(lookahead.code, lookahead.attribute.flt_value);
+		ret = FLOAT;
 		break;
 	case LPR_T:
 		gen_incode("(");
 		match(lookahead.code, lookahead.attribute.arr_op);
-		arithmetic_expression();
+		ret = arithmetic_expression();
 		gen_incode(")");
 		match(RPR_T, NO_ATTR);
 		break;
 	default:
 		syn_printe();
 	}
+	return ret;
 }
 
 /*
@@ -778,9 +882,24 @@ Author: Daniel Brenot
 */
 void primary_string_expression()
 {
+	int strSize = 0, i = 0;
+	char * temp;
 	switch (lookahead.code)
 	{
-	case SVID_T: case STR_T:
+	case SVID_T:
+		gen_incode(lookahead.attribute.vid_lex);
+		match(lookahead.code, NO_ATTR);
+		break;
+	case STR_T:
+		b_mark(str_LTBL, lookahead.attribute.str_offset);
+		b_reset(str_LTBL);
+		while (b_getc(str_LTBL) != '\0') { strSize++; }
+		temp = (char*)malloc(sizeof(char)*(strSize + 1));
+		b_reset(str_LTBL);
+		while (strSize >= 0) { temp[i] = b_getc(str_LTBL); strSize--; i++; }
+		gen_incode("\"");
+		gen_incode(temp);
+		gen_incode("\"");
 		match(lookahead.code, NO_ATTR);
 		break;
 	default:
@@ -1086,34 +1205,6 @@ void variable_list_p() {
 	variable_list_p();
 }
 
-void appendDefine(int type, char* name)
-{
-	/*
-	currentDefines=realloc(currentDefines, ++definesSize*sizeof(char *));
-	if (currentDefines == NULL) { return; }
-	switch (type)
-	{
-	case INTEGER:
-	currentDefines[definesSize] = calloc(7+strlen(name), sizeof(char));
-	strcat(currentDefines[definesSize],"int ");
-	strcat(currentDefines[definesSize], name);
-	strcat(currentDefines[definesSize], "=0;\n");
-	break;
-	case FLOAT:
-	currentDefines[definesSize] = calloc(12 + strlen(name), sizeof(char));
-	strcat(currentDefines[definesSize], "float ");
-	strcat(currentDefines[definesSize], name);
-	strcat(currentDefines[definesSize], "=0.0;\n");
-	break;
-	case STRING:
-	currentDefines[definesSize] = calloc(10 + strlen(name), sizeof(char));
-	strcat(currentDefines[definesSize], "char * ");
-	strcat(currentDefines[definesSize], name);
-	strcat(currentDefines[definesSize], ";\n");
-	break;
-	}
-	*/
-}
 void appendToken() {
 	LinkedList* iterator;
 	LinkedList* newLink = malloc(sizeof(LinkedList));

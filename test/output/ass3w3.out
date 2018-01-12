@@ -1,0 +1,29 @@
+void main(int argc, char**argv){
+PLATY: Syntax error:  Line:  6
+*****  Token code: 16 Attribute: IF
+PLATY: Syntax error:  Line:  6
+*****  Token code: 16 Attribute: IF
+PLATY: Syntax error:  Line:  9
+*****  Token code:  6 Attribute: begin
+PLATY: Syntax error:  Line:  9
+*****  Token code:  6 Attribute: begin
+PLATY: Syntax error:  Line: 12
+*****  Token code:  0 Attribute: ^
+PLATY: Syntax error:  Line: 12
+*****  Token code:  0 Attribute: @
+PLATY: Syntax error:  Line: 12
+*****  Token code: 16 Attribute: REPEAT
+char * a$="";
+scanf("%d\n",&b);
+scanf("%d\n",&a);
+scanf("%d\n",&b$);
+if(if==){
+char * a$="begin"a$b$"end";
+}
+else{
+}
+}
+PLATY: Syntax error:  Line: 13
+*****  Token code: 16 Attribute: PLATYPUS
+
+Syntax errors: 6

@@ -1,0 +1,12 @@
+void main(int argc, char**argv){
+PLATY: Syntax error:  Line:  7
+*****  Token code:  0 Attribute: _
+PLATY: Syntax error:  Line:  7
+*****  Token code:  0 Attribute: .
+int a;
+a=a+(-b);
+}
+PLATY: Syntax error:  Line:  8
+*****  Token code: 18 Attribute: NA
+
+Syntax errors: 3
